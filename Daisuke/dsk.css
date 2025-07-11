@@ -1,34 +1,58 @@
 body {
-font-family: 'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
-background: url('images/beach-17898_256.gif') repeat-x; 
-background-size: auto 100%; 
-color: #005f73;
-text-align: center;
-margin: 0;
-padding: 20px;
-animation: wave 10s linear infinite; 
+  font-family: 'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+  background: url('images/beach-17898_256.gif') repeat-x;
+  background-size: auto 100%;
+  /* 全体の文字色を読みやすいダークグレーに変更 */
+  color: #333;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
 }
 
 @keyframes wave {
-0% {
-background-position: 0 0;
-}
-100% {
-background-position: 100% 0;
-}
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 .title {
-font-size: 2.5em;
-color: #ee6c4d;
-font-weight: bold;
-margin-bottom: 40px;
-display: inline-block;
-position: relative;
+  font-size: 2.5em;
+  /* 落ち着いた海の青色に変更 */
+  color: #ece82d;
+  font-weight: bold;
+  margin-bottom: 40px;
+  display: inline-block;
+  position: relative;
 }
 
 h2 {
-font-size: 1.8em;
-color: #0a9396;
-border-bottom: 3px dashed #94d2bd;
+  font-size: 1.8em;
+  /* タイトルと調和する青系の色に変更 */
+  color: #4bec86;
+  /* ボーダーの色を少し調整 */
+  border-bottom: 3px dashed #0a9396;
 }
+
+p {
+  /* 半透明の白背景にして、読みやすさとデザイン性を両立 */
+  background-color: rgba(255, 255, 255, 0.85);
+  /* 文字が背景に埋もれないように指定 */
+  color: #333;
+  /* 少し角を丸くして柔らかい印象に */
+  border-radius: 8px;
+  /* 内側に余白を追加して読みやすく */
+  padding: 15px;
+  /* 左右の余白を自動調整して中央に配置 */
+  margin: 1em auto;
+  /* コンテンツの最大幅を指定して、画面が広くても読みやすいように */
+  max-width: 600px;
+}
+
+
+
+
+
+
