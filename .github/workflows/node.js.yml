@@ -1,0 +1,71 @@
+# ワークフローの名前
+name: Deploy Next.js to GitHub Pages
+
+# ワークフローが実行されるきっかけ
+on:
+  # mainブランチにpushされた時に実行
+  push:
+    branches: ["main"]
+  # Actionsタブから手動で実行することも可能にする
+  workflow_dispatch:
+
+# 実行される一連の処理（ジョブ）
+jobs:
+  # build という名前のジョブ
+  build:
+    # 実行環境として最新のUbuntuを使用
+    runs-on: ubuntu-latest
+    
+    # ジョブに与える権限の設定
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    # 実行する個々の手順（ステップ）
+    steps:
+      # 1. リポジトリのコードをチェックアウト（取得）する
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Node.jsの環境をセットアップする
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # あなたのプロジェクトに合わせたバージョンを指定
+          cache: 'npm'
+          cache-dependency-path: 'csex-team2/package-lock.json'
+
+      # 3. Next.jsプロジェクトに移動し、ビルドする
+      - name: Install and Build
+        # working-directoryで、これ以降のコマンドが実行される場所を指定
+        working-directory: ./csex-team2 
+        run: |
+          npm ci
+          npm run build
+
+      # 4. ビルドされた成果物（outフォルダ）をアップロードする準備
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 公開したいフォルダのパスを指定
+          path: ./csex-team2/out
+
+  # deploy という名前のジョブ
+  deploy:
+    # buildジョブが成功した後に実行される
+    needs: build
+    
+    # 実行環境として最新のUbuntuを使用
+    runs-on: ubuntu-latest
+    
+    # ジョブに与える権限の設定
+    permissions:
+      pages: write
+      id-token: write
+      
+    # 実行する個々の手順（ステップ）
+    steps:
+      # 1. アップロードされた成果物をデプロイする
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
